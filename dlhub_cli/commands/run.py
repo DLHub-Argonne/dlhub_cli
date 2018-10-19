@@ -6,16 +6,16 @@ from dlhub_cli.printing import format_output
 from dlhub_cli.parsing import dlhub_cmd, index_argument
 
 
-@dlhub_cmd('publish', help='Publish a servable to DLHub.')
+@dlhub_cmd('run', help='Invoke a servable')
 @click.option('--servable',
               default=None, show_default=True,
-              help='The servable to publish.')
-def publish_cmd(servable):
+              help='The servable to invoke.')
+def run_cmd(servable):
     """
-    Publish a model to DLHub.
+    Invoke the servable
 
-    :param servable: A particular servable to publish
+    :param servable: The servable to invoke
     :return:
     """
-    format_output("Publishing {}".format(servable))
+    format_output("Running {}".format(servable))
     pass

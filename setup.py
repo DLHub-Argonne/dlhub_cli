@@ -8,7 +8,7 @@ with open(os.path.join("dlhub_cli", "version.py")) as f:
 version = version_ns['__version__']
 
 setup(
-    name="dlhub-cli",
+    name="dlhub_cli",
     version=version,
     packages=find_packages(exclude=['tests', 'tests.*']),
     install_requires=[
@@ -25,7 +25,7 @@ setup(
     long_description=open("README.md").read(),
     author="Ryan Chard",
     author_email="rchard@anl.gov",
-    url="https://github.com/DLHub-Argonne/dlhub-cli",
+    url="https://github.com/DLHub-Argonne/dlhub_cli",
     keywords=["dlhub", "cli", "command line"],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

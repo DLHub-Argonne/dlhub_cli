@@ -7,17 +7,17 @@ from dlhub_cli.parsing import dlhub_cmd, index_argument
 
 
 @dlhub_cmd('init', help='Initialize a DLHub repository')
-@click.option('--model',
+@click.option('--servable',
               default=None, show_default=True,
-              help='The model to initialize.')
-def init_cmd(model):
+              help='The servable to initialize.')
+def init_cmd(servable):
     """
     Initialize the model repository. Create the .dlhub directory (if it
     doesn't exist) and use the toolbox to generate a config file for the
     specific model.
 
-    :param model: A particular model to initialize
+    :param servable: A particular servable to initialize
     :return:
     """
-    format_output("Initializing {}".format(model))
+    format_output("Initializing {}".format(servable))
     pass
