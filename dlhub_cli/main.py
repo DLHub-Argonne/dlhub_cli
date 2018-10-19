@@ -1,0 +1,21 @@
+from dlhub_cli.parsing import main_func
+from dlhub_cli.commands import (
+    init_cmd, publish_cmd, update_cmd,
+    run_cmd, ls_cmd)
+
+
+@main_func
+def cli_root():
+    """
+    Root to add everything to.
+
+    :return:
+    """
+    pass
+
+
+cli_root.add_command(init_cmd)
+cli_root.add_command(publish_cmd)
+cli_root.add_command(update_cmd)
+cli_root.add_command(run_cmd)
+cli_root.add_command(ls_cmd)
