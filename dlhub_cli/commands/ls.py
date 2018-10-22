@@ -21,4 +21,5 @@ def ls_cmd():
     servables = [serv_file for serv_file in os.listdir(dlhub_directory) if serv_file.endswith('.json')]
 
     for serv in servables:
-        format_output(serv)
+        res = serv.split(".json")[0]
+        format_output(res)

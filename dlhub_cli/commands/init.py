@@ -49,6 +49,10 @@ def init_cmd(servable, from_pickle):
     if not os.path.exists(dlhub_directory):
         os.makedirs(dlhub_directory)
 
+    # If it doesn't already have an id, generate one.
+    if not loaded_servable.dlhub_id:
+        loaded_servable.assign_dlhub_id()
+
     # Save both the json and pkl representations to the dlhub directory
     pkl_path = os.path.join(dlhub_directory, loaded_servable.name + ".pkl")
     json_path = os.path.join(dlhub_directory, loaded_servable.name + ".json")
