@@ -6,10 +6,10 @@ import pickle as pkl
 
 from dlhub_cli.printing import format_output
 from dlhub_cli.config import get_dlhub_directory
-from dlhub_cli.parsing import dlhub_cmd, index_argument
+from dlhub_cli.parsing import dlhub_cmd
 
 
-@dlhub_cmd('init', help='Initialize a DLHub repository')
+@dlhub_cmd('init', help='Initialize a DLHub servable')
 @click.option('--servable',
               default=None, show_default=True,
               help='The servable to initialize.')
@@ -18,7 +18,7 @@ from dlhub_cli.parsing import dlhub_cmd, index_argument
               help='A schema pickle to initialize from.')
 def init_cmd(servable, from_pickle):
     """
-    Initialize the model repository. Create the .dlhub directory (if it
+    Initialize a servable. Create the .dlhub directory (if it
     doesn't exist) and use the toolbox to generate a config file for the
     specific model.
 
@@ -38,7 +38,7 @@ def init_cmd(servable, from_pickle):
         except FileNotFoundError as e:
             format_output("FileNotFound error ({0}) {1}:".format(e.strerror), from_pickle)
         except Exception as e:
-            format_output("Exception ({0})".format(e.strerror))
+            format_output("Exception ({0})".format(e))
 
     if not loaded_servable:
         format_output('Failed to load servable.')
@@ -54,14 +54,14 @@ def init_cmd(servable, from_pickle):
         loaded_servable.assign_dlhub_id()
 
     # Save both the json and pkl representations to the dlhub directory
-    pkl_path = os.path.join(dlhub_directory, loaded_servable.name + ".pkl")
-    json_path = os.path.join(dlhub_directory, loaded_servable.name + ".json")
+    pkl_path = os.path.join(dlhub_directory, loaded_servable['dlhub']['name']+ ".pkl")
+    json_path = os.path.join(dlhub_directory, loaded_servable['dlhub']['name'] + ".json")
 
     try:
         with open(pkl_path, 'wb') as fp:
             pkl.dump(loaded_servable, fp)
         with open(json_path, 'w') as fp:
-            json.dump(loaded_servable.to_dict(), fp)
+            json.dump(loaded_servable.to_dict(save_class_data=True), fp)
             format_output("Created {0}".format(json_path))
     except IOError as e:
         format_output("I/O error({0}): {1}".format(e.errno, e))
