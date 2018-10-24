@@ -5,9 +5,11 @@ import boto3
 import click
 import requests
 import pickle as pkl
+from tempfile import mkstemp
 
 import dlhub_toolbox
 import dlhub_client
+from dlhub_toolbox.utils.schemas import validate_against_dlhub_schema
 
 from dlhub_cli.config import get_dlhub_directory, get_publish_url
 from dlhub_cli.printing import format_output
@@ -23,39 +25,28 @@ def _stage_data(servable):
     """
     s3 = boto3.resource('s3')
 
-    # Get the list of things to upload
-    upload_files = []
-
-    # Figure out what to upload.
-    data_path = servable.files['model']
-    for dp in servable.files['other']:
-        upload_files.append(dp)
-
-    # Crawl if its a directory.
-    if os.path.isdir(data_path):
-        for (src_dir, dirname, filename) in os.walk(data_path):
-            for f in filename:
-                if f[0] == ".":  # Ignore hidden files
-                    continue
-                upload_files.append(os.path.join(src_dir, f))
-    else:
-        upload_files.append(data_path)
-
     # Generate a uuid to deposit the data
     dest_uuid = str(uuid.uuid4())
     dest_dir = 'servables/'
     bucket_name = 'dlhub-anl'
 
-    # Upload to S3
-    for sourcepath in upload_files:
-        ext_path = sourcepath.split(data_path)[-1].strip("/")  # Take everything after parent dir
-        destpath = os.path.join(dest_dir, dest_uuid, ext_path)  # Join destination with a uuid and path to file
-        format_output("Uploading: {}".format(sourcepath))
-        res = s3.Object(bucket_name, destpath).put(ACL="public-read", Body=open(sourcepath, 'rb'))
+    fp, zip_filename = mkstemp('.zip')
+    os.close(fp)
+    os.unlink(zip_filename)
 
-    staged_path = os.path.join("s3://", bucket_name, dest_dir, dest_uuid)
-    return staged_path
+    try:
+        servable.get_zip_file(zip_filename)
 
+        destpath = os.path.join(dest_dir, dest_uuid, zip_filename.split("/")[-1])
+        format_output("Uploading: {}".format(zip_filename))
+        res = s3.Object(bucket_name, destpath).put(ACL="public-read",
+                                                   Body=open(zip_filename, 'rb'))
+        staged_path = os.path.join("s3://", bucket_name, dest_dir, dest_uuid)
+        return staged_path
+    except Exception as e:
+        format_output("Publication error: {}".format(e))
+    finally:
+        os.unlink(zip_filename)
 
 @dlhub_cmd('publish', help='Publish a servable to DLHub.')
 @click.option('--servable',
@@ -90,14 +81,19 @@ def publish_cmd(servable):
         format_output("Failed to load servable.")
         return
 
+    # Sort out paths
+    metadata = loaded_servable.to_dict(simplify_paths=True)
+
+    # Validate against the servable schema
+    validate_against_dlhub_schema(metadata, 'servable')
+
     # Stage data for DLHub to access
     staged_path = _stage_data(loaded_servable)
     format_output(staged_path)
 
     # Publish to DLHub
-    payload = loaded_servable.to_dict()
-    payload['dlhub']['location'] = staged_path
+    metadata['dlhub']['location'] = staged_path
 
     url = get_publish_url()
-    response = requests.post(url, json=payload)
+    response = requests.post(url, json=metadata)
     format_output(response.text)
