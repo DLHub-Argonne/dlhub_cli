@@ -5,16 +5,6 @@ DLHUB_DIRECTORY_PATH = '.dlhub'
 DLHUB_URL = "https://dlhub.org/"
 
 
-
-def get_publish_url():
-    """
-    Return the url to publish servables.
-
-    :return str: publish url
-    """
-    pub_path = "{}api/v1/publish".format(DLHUB_URL)
-    return pub_path
-
 def get_dlhub_directory():
     """
     Standardize the dlhub directory path for each command.
