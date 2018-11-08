@@ -1,7 +1,6 @@
 import os
 import json
 import click
-import dlhub_toolbox
 import pickle as pkl
 
 from dlhub_cli.printing import format_output
