@@ -4,7 +4,7 @@ from dlhub_cli.printing import safeprint
 from dlhub_cli.config import (
     DLHUB_AT_OPTNAME, DLHUB_AT_EXPIRES_OPTNAME, DLHUB_RT_OPTNAME,
     lookup_option, write_option,
-    internal_auth_client)
+    internal_auth_client, check_logged_in)
 
 
 SEARCH_ALL_SCOPE = 'urn:globus:auth:scope:search.api.globus.org:all'
@@ -61,7 +61,6 @@ def _do_login_flow():
     :return:
     """
 
-
     # get the NativeApp client object
     native_client = internal_auth_client()
 
@@ -80,20 +79,6 @@ def _do_login_flow():
     _store_config(tkn)
 
 
-def _check_logged_in():
-    """
-    Check if the user is already logged in.
-
-    :return:
-    """
-    search_rt = lookup_option(DLHUB_RT_OPTNAME)
-    if search_rt is None:
-        return False
-    native_client = internal_auth_client()
-    res = native_client.oauth2_validate_token(search_rt)
-    return res['active']
-
-
 @click.command('login',
                short_help=('Log into Globus to get credentials for '
                            'the DLHub CLI'),
@@ -108,7 +93,7 @@ def login_cmd(force):
     :param force:
     :return:
     """
-    if not force and _check_logged_in():
+    if not force and check_logged_in():
         safeprint(_LOGGED_IN_RESPONSE)
         return
 

@@ -13,9 +13,11 @@ __all__ = (
     'write_option',
     'lookup_option',
     'remove_option',
-
     'internal_auth_client',
 
+    'check_logged_in',
+
+    'get_dlhub_directory',
     'get_dlhub_client',
 )
 
@@ -133,6 +135,20 @@ def internal_auth_client():
 #     return globus_sdk.SearchClient(
 #         authorizer=authorizer,
 #         app_name='dlhub-cli v{}'.format(version.__version__))
+
+
+def check_logged_in():
+    """
+    Check if the user is already logged in.
+
+    :return:
+    """
+    search_rt = lookup_option(DLHUB_RT_OPTNAME)
+    if search_rt is None:
+        return False
+    native_client = internal_auth_client()
+    res = native_client.oauth2_validate_token(search_rt)
+    return res['active']
 
 
 def get_dlhub_directory():

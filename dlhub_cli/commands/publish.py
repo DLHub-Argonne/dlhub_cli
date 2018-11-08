@@ -2,9 +2,18 @@ import os
 import click
 import pickle as pkl
 
-from dlhub_cli.config import get_dlhub_directory, get_dlhub_client
-from dlhub_cli.printing import format_output
+from dlhub_cli.config import get_dlhub_directory, get_dlhub_client, check_logged_in
+from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
+
+
+_LOGIN_MSG = (u"""\
+
+You must be logged in to perform this function.
+
+Login to the DLHub CLI with
+  dlhub login
+""")
 
 
 @dlhub_cmd('publish', help='Publish a servable to DLHub.')
@@ -19,6 +28,12 @@ def publish_cmd(servable):
     :param servable: A particular servable to publish
     :return:
     """
+
+
+    if not check_logged_in():
+        safeprint(_LOGIN_MSG)
+        return
+
     format_output("Publishing {}".format(servable))
     loaded_servable = None
     dlhub_directory = get_dlhub_directory()
