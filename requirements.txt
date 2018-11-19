@@ -2,4 +2,4 @@ click
 requests
 six
 boto3
-dlhub_sdk
+git+git://github.com/DLHub-Argonne/dlhub_sdk.git
