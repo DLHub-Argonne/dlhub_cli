@@ -35,12 +35,12 @@ Installation using Conda
 
      $ python3 -m pip install dlhub_cli
 
-     (to update a previously installed the cli to a newer version, use: python3 -m pip install -U parsl)
+     (to update a previously installed the cli to a newer version, use: python3 -m pip install -U dlhub_cli)
 
 For Developers
 --------------
 
-1. Download Parsl::
+1. Download the CLI::
 
     $ git clone https://github.com/DLHub-Argonne/dlhub_cli
 
@@ -54,6 +54,6 @@ For Developers
 Requirements
 ------------
 
-Parsl requires the following:
+DLHub_CLI requires the following:
 
 * Python 3.5+
