@@ -6,11 +6,19 @@
 Welcome to DLHub_CLI's documentation!
 =====================================
 
+A Command Line Interface for `DLHub <http://dlhub.org>`_
+
+Source Code: https://github.com/DLHub-Argonne/dlhub_cli
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   quickstart
+   faq
    source/modules
+
 
 Indices and tables
 ==================

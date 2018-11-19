@@ -1,4 +1,4 @@
-dlhub_cli
+Reference
 =========
 
 .. toctree::
