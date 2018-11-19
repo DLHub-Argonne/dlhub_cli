@@ -4,6 +4,10 @@
 *.pyc
 /docs-source/_build/
 
+/docs/_build
+/docs/_static
+/docs/_templates
+
 #virtualenv
 /virtualenv/
 /.virtualenv/
