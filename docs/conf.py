@@ -32,9 +32,17 @@ sys.path.insert(0, os.path.abspath('../'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc',
+# extensions = ['sphinx.ext.autodoc',
+#     'sphinx.ext.intersphinx',
+#     'sphinx.ext.coverage']
+
+extensions = [
+    'nbsphinx',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.coverage']
+    'sphinx.ext.napoleon'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -50,8 +58,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'DLHub_CLI'
-copyright = '2018, Ryan Chard'
-author = 'Ryan Chard'
+copyright = '2018, Argonne National Laboratory'
+author = 'The Data and Learning Hub for Science'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -87,7 +95,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 # html_theme = 'alabaster'
-html_theme = 'default'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

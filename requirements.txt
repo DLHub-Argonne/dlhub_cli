@@ -4,3 +4,4 @@ six
 boto3
 git+git://github.com/DLHub-Argonne/dlhub_sdk.git
 configobj
+sphinx_rtd_theme
