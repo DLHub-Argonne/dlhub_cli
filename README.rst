@@ -1,7 +1,7 @@
 DLHub CLI
 =========
 
-A Command Line Interface for [DLHub](https://dlhub.org) 
+A Command Line Interface for [DLHub](https://dlhub.org)
 
 Source Code: https://github.com/DLHub-Argonne/dlhub_cli
 

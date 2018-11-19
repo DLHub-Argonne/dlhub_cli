@@ -3,3 +3,4 @@ requests
 six
 boto3
 git+git://github.com/DLHub-Argonne/dlhub_sdk.git
+configobj
