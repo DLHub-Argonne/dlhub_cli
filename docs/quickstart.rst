@@ -49,7 +49,9 @@ For Developers
     $ cd dlhub_cli
     $ python3 setup.py install
 
-3. Use the CLI!
+3. Use the CLI::
+
+    $ dlhub
 
 Requirements
 ------------
