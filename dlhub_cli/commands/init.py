@@ -4,7 +4,6 @@ import click
 import pickle as pkl
 
 from dlhub_cli.printing import format_output
-from dlhub_cli.config import get_dlhub_directory
 from dlhub_cli.parsing import dlhub_cmd
 
 
@@ -43,18 +42,13 @@ def init_cmd(servable, from_pickle):
         format_output('Failed to load servable.')
         return
 
-    # Create the .dlhub dir if it doesn't exist
-    dlhub_directory = get_dlhub_directory()
-    if not os.path.exists(dlhub_directory):
-        os.makedirs(dlhub_directory)
-
     # If it doesn't already have an id, generate one.
     if not loaded_servable.dlhub_id:
         loaded_servable.assign_dlhub_id()
 
-    # Save both the json and pkl representations to the dlhub directory
-    pkl_path = os.path.join(dlhub_directory, loaded_servable['dlhub']['name']+ ".pkl")
-    json_path = os.path.join(dlhub_directory, loaded_servable['dlhub']['name'] + ".json")
+    # Save both the json and pkl representations
+    pkl_path = loaded_servable['dlhub']['name'] + ".pkl"
+    json_path = "dlhub.json"
 
     try:
         with open(pkl_path, 'wb') as fp:

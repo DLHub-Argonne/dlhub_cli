@@ -16,7 +16,6 @@ def status_cmd(task):
     :param task: The uuid of a task
     :return:
     """
-    format_output("Checking status {}".format(task))
 
     client = get_dlhub_client()
     res = client.get_task_status(task)

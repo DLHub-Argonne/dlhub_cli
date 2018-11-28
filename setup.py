@@ -26,15 +26,19 @@ setup(
     author="Ryan Chard",
     author_email="rchard@anl.gov",
     url="https://github.com/DLHub-Argonne/dlhub_cli",
-    keywords=["dlhub", "cli", "command line"],
+    keywords=[
+        "DLHub",
+        "Data and Learning Hub for Science",
+        "machine learning",
+        "data publication",
+        "reproducibility",
+    ],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7"

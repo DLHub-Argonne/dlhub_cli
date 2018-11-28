@@ -2,25 +2,19 @@ import os
 import click
 import pickle as pkl
 
-from dlhub_cli.config import get_dlhub_directory, get_dlhub_client, check_logged_in
+from dlhub_cli.config import get_dlhub_client
 from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
-
-
-_LOGIN_MSG = (u"""\
-
-You must be logged in to perform this function.
-
-Login to the DLHub CLI with
-  dlhub login
-""")
 
 
 @dlhub_cmd('publish', help='Publish a servable to DLHub.')
 @click.option('--servable',
               default=None, show_default=True,
               help='The servable to publish.')
-def publish_cmd(servable):
+@click.option('--repository',
+              default=None, show_default=True,
+              help='The repository to publish.')
+def publish_cmd(servable, repository):
     """
     Publish a model to DLHub. Read the description file from the .dlhub directory
     and send a publication request to DLHub.
@@ -28,18 +22,12 @@ def publish_cmd(servable):
     :param servable: A particular servable to publish
     :return:
     """
-
-
-    if not check_logged_in():
-        safeprint(_LOGIN_MSG)
-        return
-
-    format_output("Publishing {}".format(servable))
     loaded_servable = None
-    dlhub_directory = get_dlhub_directory()
+
+    client = get_dlhub_client()
 
     if servable:
-        servable_path = os.path.join(dlhub_directory, servable + ".pkl")
+        servable_path = servable + ".pkl"
         format_output(servable_path)
         try:
             with open(servable_path, 'rb') as fp:
@@ -51,11 +39,15 @@ def publish_cmd(servable):
         except Exception as e:
             format_output("Exception ({0})".format(e))
 
-    if not loaded_servable:
-        format_output("Failed to load servable.")
-        return
+        if not loaded_servable:
+            format_output("Failed to load servable.")
+            return
+        res = client.publish_servable(loaded_servable)
+        format_output("Task_id: {}".format(res))
+    elif repository:
+        res = client.publish_repository(repository)
+        format_output("Task_id: {}".format(res))
 
-    client = get_dlhub_client()
-    res = client.publish_servable(loaded_servable)
 
-    format_output("Task_id: {}".format(res))
+
+

@@ -2,7 +2,6 @@ import os
 import json
 
 from dlhub_cli.printing import format_output
-from dlhub_cli.config import get_dlhub_directory
 from dlhub_cli.parsing import dlhub_cmd, index_argument
 
 
@@ -15,10 +14,9 @@ def ls_cmd():
     """
     format_output("Servables:")
 
-    dlhub_directory = get_dlhub_directory()
 
     # List the set of servables in the dlhub directory.
-    servables = [serv_file for serv_file in os.listdir(dlhub_directory) if serv_file.endswith('.json')]
+    servables = [serv_file for serv_file in os.listdir('.') if serv_file.endswith('dlhub.json')]
 
     for serv in servables:
         res = serv.split(".json")[0]

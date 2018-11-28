@@ -2,18 +2,8 @@ import json
 import click
 
 from dlhub_cli.printing import format_output, safeprint
-from dlhub_cli.config import (get_dlhub_client, check_logged_in)
+from dlhub_cli.config import (get_dlhub_client)
 from dlhub_cli.parsing import dlhub_cmd
-
-
-_LOGIN_MSG = (u"""\
-
-You must be logged in to perform this function.
-
-Login to the DLHub CLI with
-  dlhub login
-""")
-
 
 @dlhub_cmd('run', help='Invoke a servable')
 @click.option('--servable',
@@ -38,15 +28,6 @@ def run_cmd(servable, servable_uuid, input, test):
     :param test: Whether or not to use the test function
     :return:
     """
-
-    if not check_logged_in():
-        safeprint(_LOGIN_MSG)
-        return
-
-    format_output("Running {}".format(servable))
-
-    if test:
-        format_output("Invoking test function")
 
     client = get_dlhub_client()
 
