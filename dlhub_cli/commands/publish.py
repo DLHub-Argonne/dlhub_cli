@@ -7,15 +7,6 @@ from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
 
 
-_LOGIN_MSG = (u"""\
-
-You must be logged in to perform this function.
-
-Login to the DLHub CLI with
-  dlhub login
-""")
-
-
 @dlhub_cmd('publish', help='Publish a servable to DLHub.')
 @click.option('--servable',
               default=None, show_default=True,
