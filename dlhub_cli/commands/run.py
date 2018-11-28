@@ -5,20 +5,21 @@ from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.config import (get_dlhub_client)
 from dlhub_cli.parsing import dlhub_cmd
 
+# @click.option('--servable-uuid',
+#               default=None, show_default=True, required=False,
+#               help='The uuid of the servable to invoke.')
+# @click.option('--test',
+#               is_flag=True,
+#               help='Flag whether or not to invoke the servable\'s test function.')
+
 @dlhub_cmd('run', help='Invoke a servable')
 @click.option('--servable',
               default=None, show_default=True, required=False,
               help='The servable to invoke.')
-@click.option('--servable-uuid',
-              default=None, show_default=True, required=False,
-              help='The uuid of the servable to invoke.')
 @click.option('--input',
               default=None, show_default=True, required=False,
               help='Input to pass to the servable.')
-@click.option('--test',
-              is_flag=True,
-              help='Flag whether or not to invoke the servable\'s test function.')
-def run_cmd(servable, servable_uuid, input, test):
+def run_cmd(servable, input):
     """
     Invoke a servable.
 
@@ -33,6 +34,6 @@ def run_cmd(servable, servable_uuid, input, test):
 
     data = json.loads(input)
 
-    res = client.run(servable_uuid, data)
+    res = client.run(servable, data)
 
     format_output(res)
