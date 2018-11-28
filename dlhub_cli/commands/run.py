@@ -29,7 +29,6 @@ def run_cmd(servable, servable_uuid, input, test):
     :return:
     """
 
-    format_output("Running {}".format(servable))
 
     if test:
         format_output("Invoking test function")

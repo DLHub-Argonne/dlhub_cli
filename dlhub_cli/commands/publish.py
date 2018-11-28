@@ -29,11 +29,6 @@ def publish_cmd(servable):
     :return:
     """
 
-
-    if not check_logged_in():
-        safeprint(_LOGIN_MSG)
-        return
-
     format_output("Publishing {}".format(servable))
     loaded_servable = None
     dlhub_directory = get_dlhub_directory()
