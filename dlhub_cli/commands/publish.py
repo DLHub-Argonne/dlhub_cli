@@ -2,7 +2,7 @@ import os
 import click
 import pickle as pkl
 
-from dlhub_cli.config import get_dlhub_directory, get_dlhub_client, check_logged_in
+from dlhub_cli.config import get_dlhub_directory, get_dlhub_client
 from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
 
