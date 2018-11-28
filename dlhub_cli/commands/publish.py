@@ -2,7 +2,7 @@ import os
 import click
 import pickle as pkl
 
-from dlhub_cli.config import get_dlhub_directory, get_dlhub_client
+from dlhub_cli.config import get_dlhub_client
 from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
 
@@ -22,15 +22,12 @@ def publish_cmd(servable, repository):
     :param servable: A particular servable to publish
     :return:
     """
-
-    format_output("Publishing {}".format(servable))
     loaded_servable = None
-    dlhub_directory = get_dlhub_directory()
 
     client = get_dlhub_client()
 
     if servable:
-        servable_path = os.path.join(dlhub_directory, servable + ".pkl")
+        servable_path = servable + ".pkl"
         format_output(servable_path)
         try:
             with open(servable_path, 'rb') as fp:
