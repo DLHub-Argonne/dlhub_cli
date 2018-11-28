@@ -11,7 +11,10 @@ from dlhub_cli.parsing import dlhub_cmd
 @click.option('--servable',
               default=None, show_default=True,
               help='The servable to publish.')
-def publish_cmd(servable):
+@click.option('--repository',
+              default=None, show_default=True,
+              help='The repository to publish.')
+def publish_cmd(servable, repository):
     """
     Publish a model to DLHub. Read the description file from the .dlhub directory
     and send a publication request to DLHub.
@@ -23,6 +26,8 @@ def publish_cmd(servable):
     format_output("Publishing {}".format(servable))
     loaded_servable = None
     dlhub_directory = get_dlhub_directory()
+
+    client = get_dlhub_client()
 
     if servable:
         servable_path = os.path.join(dlhub_directory, servable + ".pkl")
@@ -37,11 +42,15 @@ def publish_cmd(servable):
         except Exception as e:
             format_output("Exception ({0})".format(e))
 
-    if not loaded_servable:
-        format_output("Failed to load servable.")
-        return
+        if not loaded_servable:
+            format_output("Failed to load servable.")
+            return
+        res = client.publish_servable(loaded_servable)
+        format_output("Task_id: {}".format(res))
+    elif repository:
+        res = client.publish_repository(repository)
+        format_output("Task_id: {}".format(res))
 
-    client = get_dlhub_client()
-    res = client.publish_servable(loaded_servable)
 
-    format_output("Task_id: {}".format(res))
+
+
