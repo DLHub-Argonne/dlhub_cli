@@ -26,6 +26,7 @@ setup(
     author="Ryan Chard",
     author_email="rchard@anl.gov",
     url="https://github.com/DLHub-Argonne/dlhub_cli",
+    python_requires=">=3.4",
     keywords=[
         "DLHub",
         "Data and Learning Hub for Science",
@@ -39,8 +40,5 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7"
     ],
 )
