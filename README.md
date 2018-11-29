@@ -21,4 +21,4 @@ pip install -e .
 ```
 
 ## Documentation
-[Read the Docs](https://dlhub-cli.readthedocs.io/en/latest/genindex.html)
+[Read the Docs](https://dlhub-cli.readthedocs.io/en/latest/)
