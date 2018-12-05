@@ -7,13 +7,14 @@ from dlhub_cli.parsing import dlhub_cmd
 
 @dlhub_cmd('servables', help='List the available servables.')
 def servables_cmd():
-    """
-    List the available servables.
+    """List the available servables.
 
-    :return:
+    Returns:
+        (dict) the list of available servables as (uuid, name) pairs.
     """
 
     client = get_dlhub_client()
     res = client.list_servables()
 
     format_output("{0}".format(res))
+    return res

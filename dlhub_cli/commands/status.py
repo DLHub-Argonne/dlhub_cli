@@ -10,14 +10,16 @@ from dlhub_cli.parsing import dlhub_cmd
               show_default=True, required=True,
               help='The UUID of a task.')
 def status_cmd(task):
-    """
-    Use DLHub to query the status of a task.
+    """Use DLHub to query the status of a task.
 
-    :param task: The uuid of a task
-    :return:
+    Args:
+        task (string): The uuid the task
+    Returns:
+        (dict) the status of the task. Once complete this will include output.
     """
 
     client = get_dlhub_client()
     res = client.get_task_status(task)
 
     format_output("{0}: {1}".format(task, res))
+    return res

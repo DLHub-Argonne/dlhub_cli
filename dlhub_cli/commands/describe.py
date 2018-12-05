@@ -13,12 +13,13 @@ from dlhub_cli.parsing import dlhub_cmd
               show_default=True, required=False,
               help='The name of a servable.')
 def describe_cmd(id, name):
-    """
-    Use DLHub to get a description of the servable.
+    """Use DLHub to get a description of the servable.
 
-    :param id: The uuid of a servable
-    :param name: The uuid of a servable
-    :return:
+    Args:
+        id (string): The uuid of the servable
+        name (string): The name of the servable
+    Returns:
+        (dict) a set of information regarding the servable
     """
 
     client = get_dlhub_client()
@@ -29,3 +30,4 @@ def describe_cmd(id, name):
         res = client.describe_servable(servable_name=name)
 
     format_output("{0}".format(res))
+    return res

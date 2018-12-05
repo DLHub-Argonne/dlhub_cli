@@ -15,13 +15,14 @@ from dlhub_cli.parsing import dlhub_cmd
               default=None, show_default=True,
               help='A schema pickle to initialize from.')
 def init_cmd(servable, from_pickle):
-    """
-    Initialize a servable. Create the .dlhub directory (if it
+    """Initialize a servable. Create the .dlhub directory (if it
     doesn't exist) and use the toolbox to generate a config file for the
     specific model.
 
-    :param servable: A particular servable to initialize
-    :return:
+    Args:
+        servable (string): A particular servable to initialize
+    Returns:
+        (None) None
     """
     format_output("Initializing")
 

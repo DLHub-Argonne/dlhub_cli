@@ -4,11 +4,12 @@ import json
 
 
 def safeprint(s):
-    """
-    Catch print errors.
+    """Catch print errors.
 
-    :param s:
-    :return:
+    Args:
+        s (string): String to print.
+    Returns:
+        (none) none.
     """
     try:
         print(s)
@@ -18,11 +19,12 @@ def safeprint(s):
 
 
 def format_output(dataobject):
-    """
-    Use safe print to make sure jobs are correctly printed.
+    """Use safe print to make sure jobs are correctly printed.
 
-    :param dataobject:
-    :return:
+    Args:
+        dataobject (string): String to print.
+    Returns:
+        (none) none.
     """
     if isinstance(dataobject, six.string_types):
         safeprint(dataobject)

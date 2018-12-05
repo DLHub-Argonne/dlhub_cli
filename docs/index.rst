@@ -16,6 +16,7 @@ Source Code: https://github.com/DLHub-Argonne/dlhub_cli
    :caption: Contents:
 
    quickstart
+   tutorial
    faq
    source/modules
 

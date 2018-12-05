@@ -6,10 +6,10 @@ from dlhub_cli.commands import (
 
 @main_func
 def cli_root():
-    """
-    Root to add everything to.
+    """Root to add everything to.
 
-    :return:
+    Returns:
+        (none) None.
     """
     pass
 

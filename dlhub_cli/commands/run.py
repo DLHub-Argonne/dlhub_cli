@@ -20,14 +20,13 @@ from dlhub_cli.parsing import dlhub_cmd
               default=None, show_default=True, required=False,
               help='Input to pass to the servable.')
 def run_cmd(servable, input):
-    """
-    Invoke a servable.
+    """Invoke a servable. The input data will be read with json.loads(input) and passed to the servable.
 
-    :param servable: The servable to invoke
-    :param servable_uuid: The uuid of the servable to invoke
-    :param input: Input to pass into the servable
-    :param test: Whether or not to use the test function
-    :return:
+    Args:
+        servable (string): The servable to invoke
+        input (dict): Input to pass into the servable
+    Returns:
+        (dict) resulting data. The output from executing the servable.
     """
 
     client = get_dlhub_client()
@@ -37,3 +36,4 @@ def run_cmd(servable, input):
     res = client.run(servable, data)
 
     format_output(res)
+    return res

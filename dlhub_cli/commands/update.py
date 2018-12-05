@@ -10,11 +10,12 @@ from dlhub_cli.parsing import dlhub_cmd, index_argument
               default=None, show_default=True,
               help='The servable to update.')
 def update_cmd(servable):
-    """
-    Update the servable
+    """Update the servable
 
-    :param servable: The servable to update
-    :return:
+    Args:
+        servable (string): The uuid of the servable to update
+    Returns:
+        (none) None.
     """
     format_output("Update {}".format(servable))
     pass

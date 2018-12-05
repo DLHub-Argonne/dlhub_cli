@@ -10,10 +10,10 @@ from dlhub_cli.config import get_dlhub_client
 @click.confirmation_option(prompt='Are you sure you want to logout?',
                            help='Automatically say "yes" to all prompts')
 def logout_cmd():
-    """
-    Logout of the dlhub client.
+    """Logout of the dlhub client.
 
-    :return:
+    Returns:
+        (None) None
     """
     client = get_dlhub_client()
 

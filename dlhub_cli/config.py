@@ -14,10 +14,10 @@ DLHUB_CLIENT = DLHubClient()
 
 
 def get_dlhub_client():
-    """
-    Get the DLHub client
+    """Get the DLHub client
 
-    :return:
+    Returns:
+        (DLHubClient) the dlhub client.
     """
 
     return DLHUB_CLIENT

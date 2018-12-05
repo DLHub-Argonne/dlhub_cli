@@ -7,13 +7,12 @@ from dlhub_cli.parsing import dlhub_cmd, index_argument
 
 @dlhub_cmd('ls', help='List servables in this directory')
 def ls_cmd():
-    """
-    List servables that have been init'd in this directory.
+    """List servables that have been init'd in this directory.
 
-    :return:
+    Returns:
+        (None) none
     """
     format_output("Servables:")
-
 
     # List the set of servables in the dlhub directory.
     servables = [serv_file for serv_file in os.listdir('.') if serv_file.endswith('dlhub.json')]

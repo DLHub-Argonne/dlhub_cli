@@ -11,10 +11,12 @@ from dlhub_cli.config import get_dlhub_client
 @click.option('--force', is_flag=True,
               help='Do a fresh login, ignoring any existing credentials')
 def login_cmd(force):
-    """
-    Perform a globus login. If forced, start the flow regardless of if they are already logged in.
-    :param force:
-    :return:
+    """Perform a globus login. If forced, start the flow regardless of if they are already logged in.
+
+    Args:
+        force (bool): Whether or not to force the login.
+    Returns:
+        (None) None
     """
     client = get_dlhub_client()
 

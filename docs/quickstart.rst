@@ -21,7 +21,7 @@ for reliable installation when many Python environments are avaialble.::
 
      $ python3 -m pip install dlhub_cli
 
-     (to update a previously installed parsl to a newer version, use: python3 -m pip install -U dlhub_cli)
+     (to update a previously installed cli to a newer version, use: python3 -m pip install -U dlhub_cli)
 
 
 Installation using Conda
@@ -59,3 +59,9 @@ Requirements
 DLHub_CLI requires the following:
 
 * Python 3.5+
+
+For building documentation:
+
+* nbsphinx
+* sphinx
+* sphinx_rtd_theme
