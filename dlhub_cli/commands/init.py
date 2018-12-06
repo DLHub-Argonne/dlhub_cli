@@ -6,6 +6,16 @@ import pickle as pkl
 from dlhub_cli.printing import format_output
 from dlhub_cli.parsing import dlhub_cmd
 
+HELP_STR = """\
+
+  Initialize a DLHub servable
+\b
+Options:
+  --servable TEXT     The servable to initialize.
+  --from-pickle TEXT  A schema pickle to initialize from.
+  -h, --help          Show this message and exit.
+  -v, --version       Show the version and exit."""
+
 
 @dlhub_cmd('init', help='Initialize a DLHub servable')
 @click.option('--servable',
@@ -24,7 +34,9 @@ def init_cmd(servable, from_pickle):
     Returns:
         (None) None
     """
-    format_output("Initializing")
+    if not any([servable, from_pickle]):
+        format_output(HELP_STR)
+        return
 
     # Load from a toolbox pickle file
     loaded_servable = None

@@ -6,6 +6,17 @@ from dlhub_cli.config import get_dlhub_client
 from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
 
+HELP_STR = """\
+
+  Publish a servable to DLHub.
+\b
+Options:
+  --local            A flag to signify publishing a servable in the local
+                     directory. This requires a dlhub.json file exist locally.
+  --repository TEXT  The repository to publish.
+  -h, --help         Show this message and exit.
+  -v, --version      Show the version and exit."""
+
 
 @dlhub_cmd('publish', help='Publish a servable to DLHub.')
 @click.option('--local', is_flag=True,
@@ -31,6 +42,11 @@ def publish_cmd(local, repository):
     Returns:
         (string) Task uuid.
     """
+
+    if not any([local, repository]):
+        format_output(HELP_STR)
+        return
+
     loaded_servable = None
 
     client = get_dlhub_client()

@@ -11,6 +11,16 @@ from dlhub_cli.parsing import dlhub_cmd
 # @click.option('--test',
 #               is_flag=True,
 #               help='Flag whether or not to invoke the servable\'s test function.')
+HELP_STR = """\
+
+  Invoke a servable
+\b
+Options:
+  --servable TEXT  The servable to invoke.
+  --input TEXT     Input to pass to the servable.
+  -h, --help       Show this message and exit.
+  -v, --version    Show the version and exit."""
+
 
 @dlhub_cmd('run', help='Invoke a servable')
 @click.option('--servable',
@@ -28,6 +38,10 @@ def run_cmd(servable, input):
     Returns:
         (dict) resulting data. The output from executing the servable.
     """
+
+    if not any([servable, input]):
+        format_output(HELP_STR)
+        return
 
     client = get_dlhub_client()
 

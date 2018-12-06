@@ -16,11 +16,11 @@ def cli_root():
 
 cli_root.add_command(init_cmd)
 cli_root.add_command(publish_cmd)
-cli_root.add_command(update_cmd)
 cli_root.add_command(run_cmd)
 cli_root.add_command(status_cmd)
 cli_root.add_command(login_cmd)
 cli_root.add_command(logout_cmd)
 cli_root.add_command(servables_cmd)
 cli_root.add_command(describe_cmd)
+# cli_root.add_command(update_cmd)
 # cli_root.add_command(ls_cmd)
