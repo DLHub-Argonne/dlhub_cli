@@ -27,6 +27,12 @@ model_info.set_abstract("A longer description of the model")
 # TODO: Add references for the model
 # model_info.add_related_identifier("DOI", "10.", "IsDescribedBy")  # Example: Paper describing the model
 
+# TODO: Describe the computational environment
+# Basic route: Add a specific Python requirement
+# model.add_requirement('numpy', 'detect')
+# Advanced: Include repo2docker config files in submission
+# model.parse_repo2docker_configuration()  # You can specify a different path for config files
+
 # TODO: Describe the inputs and outputs of the model
 
 # Check the schema against a DLHub Schema
