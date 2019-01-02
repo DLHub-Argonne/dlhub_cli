@@ -13,12 +13,12 @@ import json
 # TODO: Fill in options specific to this type of model
 model_info = BaseMetadataModel.create_model(None)
 
-# TODO: Give the model a name and a title
-model_info.set_title("A descriptive title of your model")
-model_info.set_name("a_short_name")
+# Define the name and title for the model
+model_info.set_title("$title")
+model_info.set_name("$name")
 
-# TODO: Provide authorship information
-model_info.set_authors(["Scientist, B"], "Argonne National Laboratory")
+# TODO: Verify authors and affiliations
+model_info.set_authors($authors, $affiliations)
 
 # TODO: Describe the scientific purpose of the model
 model_info.set_domains(["some", "pertinent", "fields"])
