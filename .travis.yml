@@ -5,6 +5,7 @@ install:
   - pip install -e .
   - pip install --only-binary=numpy,scipy -r requirements.txt
   - pip install coveralls
+  - pip install pytest --upgrade
 script:
   - pytest --show-capture stdout
 after_success:
