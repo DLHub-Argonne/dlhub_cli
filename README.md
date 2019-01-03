@@ -1,6 +1,6 @@
 DLHub CLI
 =========
-
+[![Build Status](https://travis-ci.org/DLHub-Argonne/dlhub_cli.svg?branch=master)](https://travis-ci.org/DLHub-Argonne/dlhub_cli)[![Coverage Status](https://coveralls.io/repos/github/DLHub-Argonne/dlhub_cli/badge.svg?branch=master)](https://coveralls.io/github/DLHub-Argonne/dlhub_cli?branch=master)[![PyPI version](https://badge.fury.io/py/dlhub-cli.svg)](https://badge.fury.io/py/dlhub-cli)[![Documentation Status](https://readthedocs.org/projects/dlhub-cli/badge/?version=latest)](https://dlhub-cli.readthedocs.io/en/latest/?badge=latest)
 
 A Command Line Interface for [DLHub](https://dlhub.org)
 
