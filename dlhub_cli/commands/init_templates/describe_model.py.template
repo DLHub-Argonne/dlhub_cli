@@ -11,7 +11,7 @@ import json
 
 # Read in model from disk
 # TODO: Fill in options specific to this type of model
-model_info = BaseMetadataModel.create_model(None)
+model_info = BaseMetadataModel.create_model()
 
 # Define the name and title for the model
 model_info.set_title("$title")

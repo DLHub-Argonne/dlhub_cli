@@ -3,10 +3,12 @@ import re
 import click
 
 from string import Template
+from subprocess import Popen, PIPE
 from dlhub_cli.parsing import dlhub_cmd
 from dlhub_cli.printing import format_output
 
-# Path of this
+
+# Path of the templates
 template_path = os.path.join(os.path.dirname(__file__), 'init_templates')
 
 
@@ -42,7 +44,9 @@ def validate_authors(ctx, param, authors):
               default='A short title for the servable')
 @click.option('--name', help='Short name for the servable',
               callback=validate_name)
-def init_cmd(force, filename, author, title, name):
+@click.option('--skip-run', help='Skip executing the dlhub.json file',
+              is_flag=True)
+def init_cmd(force, filename, author, title, name, skip_run):
     """
     Initial step in creating a DLHub model.
 
@@ -54,6 +58,7 @@ def init_cmd(force, filename, author, title, name):
         author ([string]): List of authors and affiliations
         title (string): Title for the servable
         name (string): Name of the servable
+        skip_run (bool): Whether the skip executing the init script
     """
 
     format_output("Initializing")
@@ -73,9 +78,22 @@ def init_cmd(force, filename, author, title, name):
 
     # Copy the template to the directory and make substitutions
     with open(filename, 'w') as fo:
-        with open(os.path.join(template_path, 'describe_model.py')) as fi:
+        with open(os.path.join(template_path, 'describe_model.py.template')) as fi:
             for line in fi:
                 newline = Template(line).substitute(subs).rstrip()
                 print(newline, file=fo)
+
+    format_output('...Saved settings file as {}'.format(filename))
+
+    # Unless skipped, run the new file
+    if not skip_run:
+        proc = Popen(['python', filename], shell=True, cwd=os.getcwd(),
+                     stderr=PIPE)
+        if proc.wait() != 0:
+            format_output('WARNING: Script failed to run. Error details:')
+            for line in proc.stderr:
+                format_output(line.decode().rstrip())
+        else:
+            print('...Saved model description as dlhub.json')
 
     return

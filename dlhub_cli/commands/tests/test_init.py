@@ -31,6 +31,7 @@ def test_init():
         with open('describe_model.py', 'r') as fp:
             assert fp.read() != 'Hello!'
 
+    with runner.isolated_filesystem():
         # Adding authors to the initial description
         result = runner.invoke(init_cmd, ['--name', 'test', '--force',
                                           '--author', 'Ward, Logan', 'Argonne National Laboratory'])
@@ -38,12 +39,14 @@ def test_init():
         with open('describe_model.py', 'r') as fp:
             assert 'Ward, Logan' in fp.read()
 
+    with runner.isolated_filesystem():
         # Make sure that it throws errors if we do not provide in Last, First
         result = runner.invoke(init_cmd, ['--name', 'test', '--force',
                                           '--author', 'Logan Ward', 'Argonne National Laboratory'])
         assert result.exit_code > 0
         assert "must be listed as" in result.output
 
+    with runner.isolated_filesystem():
         # Add a title to the output
         result = runner.invoke(init_cmd, ['--name', 'test', '--force',
                                           '--author', 'Ward, Logan', 'Argonne National Laboratory',
@@ -52,3 +55,14 @@ def test_init():
         with open('describe_model.py', 'r') as fp:
             assert 'Test case for py.test' in fp.read()
 
+    with runner.isolated_filesystem():
+        # Make sure it runs the script at the end of the generation
+        result = runner.invoke(init_cmd, ['--name', 'test'])
+        assert result.exit_code == 0
+        assert os.path.isfile('dlhub.json')
+
+    with runner.isolated_filesystem():
+        # Make sure it doesn't runs at the end of the code
+        result = runner.invoke(init_cmd, ['--name', 'test', '--skip-run'])
+        assert result.exit_code == 0
+        assert not os.path.isfile('dlhub.json')
