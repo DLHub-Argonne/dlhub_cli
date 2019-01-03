@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -e .
+  - pip install --only-binary=numpy,scipy -r requirements.txt
+  - pip install coveralls
+script:
+  - pytest
+after_success:
+  - coveralls
