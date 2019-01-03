@@ -1,14 +1,18 @@
 import os
+import pytest
 from click.testing import CliRunner
 from dlhub_cli.commands.init import init_cmd
 
 
-def test_init():
-    runner = CliRunner()
+@pytest.fixture
+def runner():
+    return CliRunner()
+
+
+def test_init_overwrite(runner):
     with runner.isolated_filesystem():
-        # Run basic command
         result = runner.invoke(init_cmd, ['--name', 'test'])
-        print(result.output)
+        assert result.exit_code == 0
         assert os.path.isfile('describe_servable.py')
         with open('describe_servable.py') as fp:
             assert 'set_name("test")' in fp.read()
@@ -31,6 +35,8 @@ def test_init():
         with open('describe_servable.py', 'r') as fp:
             assert fp.read() != 'Hello!'
 
+
+def test_authors(runner):
     with runner.isolated_filesystem():
         # Adding authors to the initial description
         result = runner.invoke(init_cmd, ['--name', 'test', '--force',
@@ -46,6 +52,8 @@ def test_init():
         assert result.exit_code > 0
         assert "must be listed as" in result.output
 
+
+def test_title(runner):
     with runner.isolated_filesystem():
         # Add a title to the output
         result = runner.invoke(init_cmd, ['--name', 'test', '--force',
@@ -55,6 +63,8 @@ def test_init():
         with open('describe_servable.py', 'r') as fp:
             assert 'Test case for py.test' in fp.read()
 
+
+def test_run_after(runner):
     with runner.isolated_filesystem():
         # Make sure it runs the script at the end of the generation
         result = runner.invoke(init_cmd, ['--name', 'test'])

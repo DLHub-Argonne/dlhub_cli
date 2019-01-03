@@ -89,9 +89,10 @@ def init_cmd(force, filename, author, title, name, skip_run):
     if not skip_run:
         proc = Popen(['python', filename], shell=True, cwd=os.getcwd(),
                      stderr=PIPE)
+        errors = proc.stderr.readlines()
         if proc.wait() != 0:
             format_output('WARNING: Script failed to run. Error details:')
-            for line in proc.stderr:
+            for line in errors:
                 format_output(line.decode().rstrip())
         else:
             print('...Saved model description as dlhub.json')
