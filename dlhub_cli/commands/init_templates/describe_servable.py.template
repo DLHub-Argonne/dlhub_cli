@@ -5,6 +5,7 @@ The places where you need to fill in information are marked with "TODO" comments
 """
 
 # TODO: Import a metadata template appropriate for your type of model
+#  See:
 from dlhub_sdk.models import BaseMetadataModel
 from dlhub_sdk.utils.schemas import validate_against_dlhub_schema
 import json

@@ -9,16 +9,16 @@ def test_init():
         # Run basic command
         result = runner.invoke(init_cmd, ['--name', 'test'])
         print(result.output)
-        assert os.path.isfile('describe_model.py')
-        with open('describe_model.py') as fp:
+        assert os.path.isfile('describe_servable.py')
+        with open('describe_servable.py') as fp:
             assert 'set_name("test")' in fp.read()
 
         # Make sure it tests a user that overwriting is not default
-        with open('describe_model.py', 'w') as fp:
+        with open('describe_servable.py', 'w') as fp:
             fp.write("Hello!")
         result = runner.invoke(init_cmd, ['--name', 'test'])
         assert "Use --force to overwrite" in result.output
-        with open('describe_model.py', 'r') as fp:
+        with open('describe_servable.py', 'r') as fp:
             assert fp.read() == 'Hello!'
 
         # Workaround: Naming the file something else
@@ -28,7 +28,7 @@ def test_init():
         # Workaround: Forcing overwrite
         result = runner.invoke(init_cmd, ['--name', 'test', '--force'])
         assert result.exit_code == 0
-        with open('describe_model.py', 'r') as fp:
+        with open('describe_servable.py', 'r') as fp:
             assert fp.read() != 'Hello!'
 
     with runner.isolated_filesystem():
@@ -36,7 +36,7 @@ def test_init():
         result = runner.invoke(init_cmd, ['--name', 'test', '--force',
                                           '--author', 'Ward, Logan', 'Argonne National Laboratory'])
         assert result.exit_code == 0
-        with open('describe_model.py', 'r') as fp:
+        with open('describe_servable.py', 'r') as fp:
             assert 'Ward, Logan' in fp.read()
 
     with runner.isolated_filesystem():
@@ -52,7 +52,7 @@ def test_init():
                                           '--author', 'Ward, Logan', 'Argonne National Laboratory',
                                           '--title', 'Test case for py.test'])
         assert result.exit_code == 0
-        with open('describe_model.py', 'r') as fp:
+        with open('describe_servable.py', 'r') as fp:
             assert 'Test case for py.test' in fp.read()
 
     with runner.isolated_filesystem():
