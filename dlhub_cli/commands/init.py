@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import click
 
 from string import Template
@@ -85,10 +86,9 @@ def init_cmd(force, filename, author, title, name, skip_run):
 
     format_output('...Saved settings file as {}'.format(filename))
 
-    # Unless skipped, run the new file
+    # Unless skipped, run the new file using the same Python that is running this code
     if not skip_run:
-        proc = Popen(['python', filename], shell=True, cwd=os.getcwd(),
-                     stderr=PIPE)
+        proc = Popen([sys.executable, filename], stderr=PIPE)
         errors = proc.stderr.readlines()
         if proc.wait() != 0:
             format_output('WARNING: Script failed to run. Error details:')
