@@ -1,5 +1,6 @@
 import click
-from dlhub_cli.config import get_dlhub_client
+from dlhub_sdk.config import check_logged_in
+from dlhub_sdk.utils.auth import do_login_flow
 
 
 @click.command('login',
@@ -15,9 +16,7 @@ def login_cmd(force):
 
     Args:
         force (bool): Whether or not to force the login.
-    Returns:
-        (None) None
     """
-    client = get_dlhub_client()
 
-    client.login(force)
+    if force or not check_logged_in():
+        do_login_flow()
