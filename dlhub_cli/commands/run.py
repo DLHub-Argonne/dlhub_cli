@@ -33,7 +33,7 @@ def run_cmd(servable, input):
     """Invoke a servable. The input data will be read with json.loads(input) and passed to the servable.
 
     Args:
-        servable (string): The servable to invoke
+        servable (string): The servable to invoke, e.g., "ryan_globusid/noop"
         input (dict): Input to pass into the servable
     Returns:
         (dict) resulting data. The output from executing the servable.
@@ -47,7 +47,10 @@ def run_cmd(servable, input):
 
     data = json.loads(input)
 
-    res = client.run(servable, data)
+    namespace = servable.split("/")[0]
+    model = servable.split("/")[1]
+
+    res = client.run(namespace, model, data)
 
     format_output(res)
     return res
