@@ -1,10 +1,13 @@
 import os
+import json
 import click
 import pickle as pkl
 
 from dlhub_cli.config import get_dlhub_client
 from dlhub_cli.printing import format_output, safeprint
 from dlhub_cli.parsing import dlhub_cmd
+
+from dlhub_sdk.utils import unserialize_object
 
 HELP_STR = """\
 
@@ -66,7 +69,9 @@ def publish_cmd(local, repository):
         if not config:
             format_output("Failed to load servable.")
             return
-        res = client.publish_servable(config)
+
+        model = unserialize_object(config)
+        res = client.publish_servable(model)
         format_output("Task_id: {}".format(res))
 
     elif repository:

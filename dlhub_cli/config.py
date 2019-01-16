@@ -10,7 +10,7 @@ DLHUB_URL = "https://dlhub.org/"
 
 CONF_SECTION_NAME = 'dlhub-cli'
 
-DLHUB_CLIENT = DLHubClient()
+DLHUB_CLIENT = DLHubClient
 
 
 def get_dlhub_client():
@@ -20,4 +20,4 @@ def get_dlhub_client():
         (DLHubClient) the dlhub client.
     """
 
-    return DLHUB_CLIENT
+    return DLHUB_CLIENT.login()
