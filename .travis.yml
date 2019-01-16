@@ -1,12 +1,21 @@
 language: python
 python:
-  - "3.6"
+- '3.6'
 install:
-  - pip install -e .
-  - pip install --only-binary=numpy,scipy -r requirements.txt
-  - pip install coveralls
-  - pip install pytest pytest-cov --upgrade
+- pip install -e .
+- pip install --only-binary=numpy,scipy -r requirements.txt
+- pip install coveralls
+- pip install pytest pytest-cov --upgrade
 script:
-  - pytest --show-capture stdout
+- pytest --show-capture stdout
 after_success:
-  - coveralls
+- coveralls
+deploy:
+  provider: pypi
+  user: wardlt
+  skip_existing: true
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
+  password:
+    secure: Cg4rP5knjDca/FcAhtdPmZvLaGtntXMId/A/aDzjl4Pe35J0NJAtsWgwmL3i1kz5lKdxhUKhRku+FAMgVmF09fWHRHUhEiRIDQ0UAFFBMdBqxykRM0WdKAR/I7wbiWKSQMtSsJGpBcbb1tHjdv2FP28QVTy1DMyG/ylAAtf7zE0NP8AJPD9BfS/ZowC83/YlHdwpPsXMTCfXfGw17t/YtiHkbFeXiuuoF/Ihgf26Bql6xaUtAIiKQ1BjN7Z+S7N/fh2uf5lACP0uyXzI74BsvKyRseRSatzTtE4mHctpCXP50rxT9JZrlBqQ7wq7AAwPUSDXPhPMjsCNEV40Th0A+xsyCVTDXWDVGxvGHU0WBeaaS11S2+CYA0WwgeVFCvufsji9Z0OUyGS5aEOMWhRC8vMkr7+Qj+cOeg9inHXIDhvW3OUVdlvD0tdt4MZ/wFwz1pUhwgaiVvSPhavr/n4l5EIG693ll7E0Wb+tvIDHXHAT6Suh+EjItyq882HeFxHOqyQ/GF+2QR0x9eo2O8Ru071zDtDQoHBTK5JWPz0S6IvoknoQjzcOyGXOxlc2s6vI7hHSGOyMScg9Nsuc9RT1ZlDehmZXJfX8iqDNNfQw1+KmByiwSPGeEkdE1wI0m8VWvAl+6W86sYqtSqQmwsLvQNAygdCPffvY+ciDDC9i8Is=
