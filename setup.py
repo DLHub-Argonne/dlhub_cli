@@ -10,7 +10,7 @@ version = version_ns['__version__']
 setup(
     name="dlhub_cli",
     version=version,
-    packages=find_packages(exclude=['tests', 'tests.*']),
+    packages=find_packages(exclude=['tests', 'tests.*']) + ['dlhub_cli.commands.init_templates'],
     install_requires=[
         'click>=6.6,<7.0',
         'requests>=2.0.0,<3.0.0',
@@ -19,7 +19,9 @@ setup(
     entry_points={
         'console_scripts': ['dlhub = dlhub_cli:cli_root']
     },
-
+    package_data={
+        'dlhub_cli.commands.init_templates': ['*.template']
+    },
     # descriptive info, non-critical
     description="DLHub CLI",
     long_description=open("README.md").read(),
