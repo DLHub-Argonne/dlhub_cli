@@ -1,0 +1,1 @@
+recursive-include dlhub-cli/commands/init_templates *.template
