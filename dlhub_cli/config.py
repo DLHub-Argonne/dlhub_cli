@@ -13,11 +13,11 @@ CONF_SECTION_NAME = 'dlhub-cli'
 DLHUB_CLIENT = DLHubClient
 
 
-def get_dlhub_client():
+def get_dlhub_client(force=False):
     """Get the DLHub client
 
     Returns:
         (DLHubClient) the dlhub client.
     """
 
-    return DLHUB_CLIENT.login()
+    return DLHUB_CLIENT.login(force=force)
