@@ -14,7 +14,8 @@ setup(
     install_requires=[
         'click>=6.6,<7.0',
         'requests>=2.0.0,<3.0.0',
-        'dlhub_sdk'
+        'dlhub_sdk',
+        'pyyaml'
     ],
     entry_points={
         'console_scripts': ['dlhub = dlhub_cli:cli_root']

@@ -8,8 +8,6 @@ def safeprint(s):
 
     Args:
         s (string): String to print.
-    Returns:
-        (none) none.
     """
     try:
         print(s)
@@ -23,8 +21,6 @@ def format_output(dataobject):
 
     Args:
         dataobject (string): String to print.
-    Returns:
-        (none) none.
     """
     if isinstance(dataobject, six.string_types):
         safeprint(dataobject)

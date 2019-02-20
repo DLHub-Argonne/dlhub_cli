@@ -5,3 +5,4 @@ boto3==1.5.36
 dlhub_sdk>=0.4.0
 configobj==5.0.6
 nbsphinx==0.4.1
+pyyaml==3.12
