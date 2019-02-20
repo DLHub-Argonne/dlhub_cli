@@ -8,8 +8,9 @@ from dlhub_cli.commands.login import login_cmd
 from dlhub_cli.commands.logout import logout_cmd
 from dlhub_cli.commands.servables import servables_cmd
 from dlhub_cli.commands.describe import describe_cmd
+from dlhub_cli.commands.whoami import whoami_cmd
 
 __all__ = ['init_cmd', 'publish_cmd', 'servables_cmd',
            'update_cmd', 'run_cmd', 'ls_cmd',
            'status_cmd', 'login_cmd', 'logout_cmd',
-           'describe_cmd']
+           'describe_cmd', 'whoami_cmd']
