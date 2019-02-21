@@ -63,8 +63,8 @@ def search_cmd(owner, name, all_versions, author, domain, doi, query):
     results_df = pd.DataFrame([{
         'Owner': r['dlhub']['owner'],
         'Model Name': r['dlhub']['name'],
-        'Publication Date': datetime.
-            fromtimestamp(int(r['dlhub']['publication_date']) / 1000).strftime('%Y-%m-%d %H:%M'),
+        'Publication Date': datetime.fromtimestamp(int(r['dlhub']['publication_date']) /
+                                                   1000).strftime('%Y-%m-%d %H:%M'),
         'Type': r['servable']['type']
     } for r in results])
 

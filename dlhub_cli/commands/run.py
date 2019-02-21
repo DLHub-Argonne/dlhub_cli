@@ -1,8 +1,8 @@
 import json
 import click
 
-from dlhub_cli.printing import format_output, safeprint
-from dlhub_cli.config import (get_dlhub_client)
+from dlhub_cli.config import get_dlhub_client
+from dlhub_cli.printing import format_output
 from dlhub_cli.parsing import dlhub_cmd
 
 # @click.option('--servable-uuid',
@@ -30,7 +30,8 @@ Options:
               default=None, show_default=True, required=False,
               help='Input to pass to the servable.')
 def run_cmd(servable, input):
-    """Invoke a servable. The input data will be read with json.loads(input) and passed to the servable.
+    """Invoke a servable. The input data will be read with
+    json.loads(input) and passed to the servable.
 
     Args:
         servable (string): The servable to invoke, e.g., "ryan_globusid/noop"

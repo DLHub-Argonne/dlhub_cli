@@ -2,6 +2,7 @@ import click
 
 from dlhub_cli.config import get_dlhub_client
 
+
 @click.command('logout',
                short_help='Logout of the DLHub CLI',
                help=('Logout of the DLHub CLI. '

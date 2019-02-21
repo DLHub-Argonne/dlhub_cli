@@ -1,10 +1,8 @@
-import os
 import json
 import click
-import pickle as pkl
 
 from dlhub_cli.config import get_dlhub_client
-from dlhub_cli.printing import format_output, safeprint
+from dlhub_cli.printing import format_output
 from dlhub_cli.parsing import dlhub_cmd
 
 from dlhub_sdk.utils import unserialize_object
@@ -29,14 +27,16 @@ Options:
               default=None, show_default=True,
               help='The repository to publish.')
 def publish_cmd(local, repository):
-    """Publish a model to DLHub. Either a metadata description file for a local servable or a remote github address.
+    """Publish a model to DLHub. Either a metadata description file for a
+    local servable or a remote github address.
     The servable's metadata will be sent to the DLHub service.
 
     If using a local servable the files described in the
-    metadata's 'files' field will be zipped into a tmp archive and staged to S3. An ingestion pipeline will then
-    download the data from S3, build the servable, and publish the servable to DLHub.
+    metadata's 'files' field will be zipped into a tmp archive
+    and then sent to DLHub via HTTPS
 
-    When using a repository the github url is passed to a specific publish_repo endpoint on DLHub. This will
+    When using a repository the github url is passed to a
+    specific publish_repo endpoint on DLHub. This will
     use repo2docker to build the servable and publish it.
 
     Args:
@@ -49,8 +49,6 @@ def publish_cmd(local, repository):
     if not any([local, repository]):
         format_output(HELP_STR)
         return
-
-    loaded_servable = None
 
     client = get_dlhub_client()
     res = None
@@ -78,7 +76,3 @@ def publish_cmd(local, repository):
         res = client.publish_repository(repository)
         format_output("Task_id: {}".format(res))
     return res
-
-
-
-

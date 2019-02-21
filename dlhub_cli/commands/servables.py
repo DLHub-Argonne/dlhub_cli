@@ -1,5 +1,3 @@
-import click
-
 from dlhub_cli.config import get_dlhub_client
 from dlhub_cli.printing import format_output
 from dlhub_cli.parsing import dlhub_cmd

@@ -54,7 +54,7 @@ def _preprocess_metadata(metadata):
            help="""Get the description of a servable
 
            OWNER is the username of the owner of the servable, and NAME is the name of the servable.
-           
+
            You can optionally specify both owner and servable name as a single argument using
            a "owner_name/servable_name" format
            """)
@@ -71,7 +71,7 @@ def describe_cmd(owner, name):
     """
 
     # Check if owner contains both
-    if name is "":
+    if name != "":
         temp = owner.split("/")
         if len(temp) != 2:
             raise click.BadArgumentUsage('Model name missing')

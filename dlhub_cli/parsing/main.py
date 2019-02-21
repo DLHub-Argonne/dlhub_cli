@@ -9,5 +9,5 @@ def main_func(f):
     :return:
     """
     f = dlhub_group('dlhub-client',
-                     help='CLI Client to the DLHub API')(f)
+                    help='CLI Client to the DLHub API')(f)
     return f

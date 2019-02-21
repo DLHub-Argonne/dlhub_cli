@@ -34,7 +34,8 @@ def test_all_models(runner: CliRunner):
 
 
 def test_manual_query(runner: CliRunner):
-    result = runner.invoke(search_cmd, ["dlhub.name:1d_norm", 'AND', "dlhub.owner:dlhub.test_gmail"])
+    result = runner.invoke(search_cmd, ["dlhub.name:1d_norm", 'AND',
+                                        "dlhub.owner:dlhub.test_gmail"])
     assert result.exit_code == 0
     assert result.output.count('1d_norm') == 1
 
