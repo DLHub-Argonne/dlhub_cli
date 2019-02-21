@@ -71,7 +71,7 @@ def describe_cmd(owner, name):
     """
 
     # Check if owner contains both
-    if name != "":
+    if name == "":
         temp = owner.split("/")
         if len(temp) != 2:
             raise click.BadArgumentUsage('Model name missing')
