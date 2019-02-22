@@ -1,8 +1,7 @@
 import os
-import json
 
 from dlhub_cli.printing import format_output
-from dlhub_cli.parsing import dlhub_cmd, index_argument
+from dlhub_cli.parsing import dlhub_cmd
 
 
 @dlhub_cmd('ls', help='List servables in this directory')

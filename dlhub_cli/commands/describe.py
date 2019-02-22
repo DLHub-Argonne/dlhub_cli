@@ -1,48 +1,89 @@
+from datetime import datetime
 import click
+import yaml
 
 from dlhub_cli.config import get_dlhub_client
 from dlhub_cli.printing import format_output
 from dlhub_cli.parsing import dlhub_cmd
 
 
-HELP_STR = """\
+_unwanted_fields = [
+    ('dlhub', 'build_location'),
+    ('dlhub', 'ecr_arn'),
+    ('dlhub', 'ecr_uri'),
+    ('dlhub', 'id'),
+    ('dlhub', 'transfer_method'),
+    ('dlhub', 'user_id')
+]
 
-  Describe a servable.
-\b
-Options:
-  --id TEXT      The UUID of a servable.
-  --name TEXT    The name of a servable.
-  -h, --help     Show this message and exit.
-  -v, --version  Show the version and exit."""
+
+def _remove_field(metadata, field):
+    """Remove a certain field from the metadata
+
+    Args:
+        metadata (dict): Metadata to be pruned
+        field ([string]): Coordinates of fields to be removed
+    """
+
+    if len(field) == 1:
+        if field[0] in metadata:
+            del metadata[field[0]]
+    else:
+        if field[0] in metadata:
+            subset = metadata[field[0]]
+            return _remove_field(subset, field[1:])
 
 
-@dlhub_cmd('describe', help='Describe a servable.')
-@click.option('--id',
-              show_default=True, required=False,
-              help='The UUID of a servable.')
-@click.option('--name',
-              show_default=True, required=False,
-              help='The name of a servable.')
-def describe_cmd(id, name):
+def _preprocess_metadata(metadata):
+    """Clean up a metadata record to make it more useful to humans
+
+    Args:
+         metadata (metadata): Metadata record to be cleaned
+    """
+    # Prune internal-only fields
+    for field in _unwanted_fields:
+        _remove_field(metadata, field)
+
+    # Turn Timestamp (epoch time in ms) into a String
+    metadata['dlhub']['publication_date'] = \
+        datetime.fromtimestamp(int(metadata['dlhub']['publication_date']) / 1000) \
+        .strftime('%Y-%m-%d %H:%M')
+
+
+@dlhub_cmd('describe', short_help="Get the description of a servable",
+           help="""Get the description of a servable
+
+           OWNER is the username of the owner of the servable, and NAME is the name of the servable.
+
+           You can optionally specify both owner and servable name as a single argument using
+           a "owner_name/servable_name" format
+           """)
+@click.argument('owner', default=None)
+@click.argument('name', default="")
+def describe_cmd(owner, name):
     """Use DLHub to get a description of the servable.
 
     Args:
-        id (string): The uuid of the servable
+        owner (string): The owner of the servable
         name (string): The name of the servable
     Returns:
         (dict) a set of information regarding the servable
     """
 
-    if not any([id, name]):
-        format_output(HELP_STR)
-        return
+    # Check if owner contains both
+    if name == "":
+        temp = owner.split("/")
+        if len(temp) != 2:
+            raise click.BadArgumentUsage('Model name missing')
+        owner, name = temp
 
+    # Retrieve the metadata
     client = get_dlhub_client()
-    res = "Unable to describe a servable (name: {0}, id: {1})".format(name, id)
-    if id:
-        res = client.describe_servable(servable_id=id)
-    elif name:
-        res = client.describe_servable(servable_name=name)
+    res = client.describe_servable(owner, name)
 
-    format_output("{0}".format(res))
+    # Clean up the metadata fields
+    _preprocess_metadata(res)
+
+    # Print it to screen
+    format_output(yaml.dump(res))
     return res

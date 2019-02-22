@@ -66,7 +66,8 @@ def init_cmd(force, filename, author, title, name, skip_run):
 
     # Check if a file would be overwritten
     if os.path.isfile(filename) and not force:
-        format_output("There is already a file named '{}'. Use --force to overwrite".format(filename))
+        format_output("There is already a file named '{}'."
+                      " Use --force to overwrite".format(filename))
         return 1
 
     # Prepare a dict of objects to be replaced

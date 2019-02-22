@@ -135,6 +135,9 @@ class DLHubCommandGroup(click.Group):
             ctx.exit()
         try:
             return super(DLHubCommandGroup, self).invoke(ctx)
+        except click.ClickException as err:
+            click.echo(err.show())
+            click.get_current_context().exit(1)
         except Exception as err:
             click.echo(err, err=True)
             click.get_current_context().exit(1)

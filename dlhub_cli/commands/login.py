@@ -1,6 +1,7 @@
 import click
 from dlhub_cli.config import get_dlhub_client
 
+
 @click.command('login',
                short_help=('Log into Globus to get credentials for '
                            'the DLHub CLI'),
@@ -16,4 +17,4 @@ def login_cmd(force):
         force (bool): Whether or not to force the login.
     """
 
-    client = get_dlhub_client(force)
+    get_dlhub_client(force)
