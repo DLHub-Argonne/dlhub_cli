@@ -15,7 +15,7 @@ setup(
         'click>=6.6,<7.0',
         'requests>=2.0.0,<3.0.0',
         'dlhub_sdk>=0.6.0',
-        'pyyaml',
+        'pyyaml>=4.2b1',
         'tabulate'
     ],
     entry_points={
