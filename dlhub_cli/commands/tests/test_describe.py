@@ -10,7 +10,7 @@ def runner():
 def test_noargs(runner: CliRunner):
     result = runner.invoke(describe_cmd)
     assert result.exit_code > 0
-    assert 'Model name missing' in result.output
+    assert 'Missing argument' in result.output
 
 
 def test_print(runner: CliRunner):

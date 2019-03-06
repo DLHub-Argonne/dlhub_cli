@@ -16,7 +16,7 @@ from dlhub_cli.config import get_dlhub_client
 
            You can optionally specify the servable name is owner_name/model_name format
            ''')
-@click.argument('name', default='')
+@click.argument('name', default=None)
 @click.argument('method', default='')
 def methods_cmd(name, method):
     """Print out the methods of a servable
@@ -27,8 +27,6 @@ def methods_cmd(name, method):
     """
 
     # Check if name is proper format
-    if name == "":
-        raise click.BadArgumentUsage('Model name missing')
     if len(name.split("/")) < 2:
         raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
     if name.split("/")[0] == "" or name.split("/")[1] == "":

@@ -14,7 +14,7 @@ def test_long_args(runner: CliRunner):
     # Give No model name
     result = runner.invoke(methods_cmd)
     assert result.exit_code > 0
-    assert 'Model name missing' in result.output
+    assert 'Missing argument' in result.output
 
     # Leave off the model name
     result = runner.invoke(methods_cmd, ['dlhub.test_gmail'])
