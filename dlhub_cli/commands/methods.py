@@ -16,34 +16,23 @@ from dlhub_cli.config import get_dlhub_client
 
            You can optionally specify the servable name is owner_name/model_name format
            ''')
-@click.argument('owner', default=None)
 @click.argument('name', default='')
 @click.argument('method', default='')
-def methods_cmd(owner, name, method):
+def methods_cmd(name, method):
     """Print out the methods of a servable
 
     Args:
-        owner (str): Name of the servable's owner
-        name (str): Name of the servable
+        name (string): DLHub name of the servable of the form <user>/<servable_name>
         method (str): Name of the method (optional)
     """
 
-    # Check if the owner sent model information in owner/model format
-    if '/' in owner:
-        # Get the owner and model name
-        temp = owner.split('/')
-        if len(temp) != 2:
-            raise click.BadArgumentUsage('Expected owner_name/model_name format')
-
-        # If "name" is provided, it is actually the method name
-        if name != '':
-            method = name
-
-        owner, name = temp
-
-    # Make sure the name was provided
-    if name == '':
-        raise click.BadArgumentUsage('Model name not provided')
+    # Check if name is proper format
+    if name == "":
+        raise click.BadArgumentUsage('Model name missing')
+    if len(name.split("/")) < 2:
+        raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
+    if name.split("/")[0] == "" or name.split("/")[1] == "":
+      raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
 
     # If the method name is blank, make it None (for compatibility with client)
     if method == '':
@@ -53,7 +42,7 @@ def methods_cmd(owner, name, method):
     client = get_dlhub_client()
 
     # Get the method details
-    method_details = client.describe_methods(owner, name, method)
+    method_details = client.describe_methods(name, method)
 
     # Print them in YAML format
     format_output(yaml.dump(method_details, default_flow_style=False))
