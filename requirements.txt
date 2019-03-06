@@ -1,8 +1,7 @@
 click==6.7
-requests==2.21.0
-six==1.11.0
-boto3==1.5.36
+requests>=2.21.0
+six>=1.11.0
 dlhub_sdk>=0.6.0
-configobj==5.0.6
 nbsphinx==0.4.1
 pyyaml>=4.2b1
+pytest-cov>=2.6.1
