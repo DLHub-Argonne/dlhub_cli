@@ -48,10 +48,7 @@ def run_cmd(servable, input):
 
     data = json.loads(input)
 
-    namespace = servable.split("/")[0]
-    model = servable.split("/")[1]
-
-    res = client.run(namespace, model, data)
+    res = client.run(servable, data)
 
     format_output(res)
     return res

@@ -58,28 +58,23 @@ def _preprocess_metadata(metadata):
            You can optionally specify both owner and servable name as a single argument using
            a "owner_name/servable_name" format
            """)
-@click.argument('owner', default=None)
-@click.argument('name', default="")
-def describe_cmd(owner, name):
+@click.argument('name', default=None)
+def describe_cmd(name):
     """Use DLHub to get a description of the servable.
 
     Args:
-        owner (string): The owner of the servable
-        name (string): The name of the servable
+        name (string): DLHub name of the servable of the form <user>/<servable_name>
     Returns:
         (dict) a set of information regarding the servable
     """
 
-    # Check if owner contains both
-    if name == "":
-        temp = owner.split("/")
-        if len(temp) != 2:
-            raise click.BadArgumentUsage('Model name missing')
-        owner, name = temp
+    # Check if name is proper format
+    if len(name.split("/")) < 2:
+        raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
 
     # Retrieve the metadata
     client = get_dlhub_client()
-    res = client.describe_servable(owner, name)
+    res = client.describe_servable(name)
 
     # Clean up the metadata fields
     _preprocess_metadata(res)
