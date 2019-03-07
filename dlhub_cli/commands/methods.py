@@ -30,7 +30,7 @@ def methods_cmd(name, method):
     if len(name.split("/")) < 2:
         raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
     if name.split("/")[0] == "" or name.split("/")[1] == "":
-      raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
+        raise click.BadArgumentUsage('Please enter name in the form <user>/<servable_name>')
 
     # If the method name is blank, make it None (for compatibility with client)
     if method == '':

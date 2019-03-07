@@ -4,6 +4,7 @@ from click.testing import CliRunner
 
 from dlhub_cli.commands.methods import methods_cmd
 
+
 @pytest.fixture()
 def runner():
     return CliRunner()
