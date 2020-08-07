@@ -12,7 +12,7 @@ setup(
     version=version,
     packages=find_packages(exclude=['tests', 'tests.*']) + ['dlhub_cli.commands.init_templates'],
     install_requires=[
-        'click>=6.6,<7.0',
+        'click>=6.6',
         'requests>=2.0.0,<3.0.0',
         'dlhub_sdk>=0.6.0',
         'pyyaml>=4.2b1',
